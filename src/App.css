@@ -1,0 +1,91 @@
+* {
+  font-family: 'Playfair Display';
+}
+
+.container {
+  max-width: 900px;
+  width: 900px;
+}
+.subcontainer {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.button-ingredient {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.input {
+  margin-top: 5px;
+}
+
+.input-ingredient {
+}
+.text {
+  font-size: 16px;
+  padding-left: 3px;
+  width: 481px;
+}
+
+.ingredient {
+  margin-top: 5px;
+  display: flex;
+}
+
+h4 {
+  margin-top: 10px;
+  margin-bottom: 2px;
+}
+
+h2 {
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+.navbar {
+  display: flex;
+  margin: auto;
+  margin-bottom: 5px;
+  height: 2rem;
+  background-color: #0076ce;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 25px;
+}
+
+.navbar-link {
+  font-size: 18px;
+  font-weight: 900;
+  margin-right: 20px;
+  color: white;
+  cursor: pointer;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.navbar-link:first-child {
+  margin-left: 5px;
+}
+.textfield {
+  margin-top: 15px;
+  margin-bottom: 25px;
+}
+
+.select {
+  display: flex;
+  flex-direction: row;
+  margin-top: 7px;
+}
+
+.subselect {
+  margin-right: 5px;
+}
+
+.recipe {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
