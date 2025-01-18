@@ -14,6 +14,7 @@ export default store;
 export {
   useFetchRecipeQuery,
   useAddRecipeMutation,
+  useEditRecipeMutation,
   useFetchRecipeNamesQuery,
   useFetchCusinesQuery,
 } from './apis/recipesApi';

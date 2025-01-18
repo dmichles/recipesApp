@@ -28,7 +28,7 @@ const units = [
   { value: 'qt', label: 'quart' },
 ];
 
-let ingredients = [{ name: '', quantity: '', unit: '' }];
+let ingredients = [];
 
 function Ingredient({ onIngredientChange, recipeIngredient }) {
   const [inputs, setInputs] = useState([{ item: '' }]);
@@ -36,12 +36,22 @@ function Ingredient({ onIngredientChange, recipeIngredient }) {
   const [unit, setUnit] = useState([{ ut: '' }]);
   const [name, setName] = useState([{ nm: '' }]);
 
-  console.log(recipeIngredient[0].unit);
-
   let arr = [];
   for (let i = 0; i < recipeIngredient.length; i++) {
-    arr.push(i);
+    arr[i] = i;
+    ingredients[i] = { name: '', quantity: '', unit: '' };
   }
+
+  arr.forEach(i => {
+    ingredients[i].name = recipeIngredient[i].name;
+    ingredients[i].quanity = recipeIngredient[i].quantity;
+    const [value] = units
+      .filter(u => u.label === recipeIngredient[i].unit)
+      .map(u => u.value);
+    ingredients[i].unit = value;
+  });
+
+  console.log(recipeIngredient[0].quantity);
 
   useEffect(() => {
     const inp = arr.map(num => {
@@ -50,6 +60,7 @@ function Ingredient({ onIngredientChange, recipeIngredient }) {
     const qty = arr.map(num => {
       return { qty: recipeIngredient[num].quantity };
     });
+
     const ut = arr.map(num => {
       const [value] = units
         .filter(u => u.label === recipeIngredient[num].unit)
@@ -69,17 +80,20 @@ function Ingredient({ onIngredientChange, recipeIngredient }) {
   }, [recipeIngredient]);
 
   const handleAddInput = index => {
+    console.log(index);
     setInputs([...inputs, { item: '' }]);
     setQuantity([...quantity, { qty: '' }]);
     setUnit([...unit, { ut: '' }]);
     setName([...name, { nm: '' }]);
+    console.log(ingredients);
     ingredients.push({ name: '', quantity: '', unit: '' });
     console.log(ingredients);
   };
 
   const handleQuantityChange = (e, index) => {
     console.log(e.target.value);
-
+    console.log(quantity);
+    console.log(ingredients);
     ingredients[index].quantity = e.target.value;
     setQuantity(prevQty =>
       prevQty.map((qt, i) => {

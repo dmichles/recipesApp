@@ -55,6 +55,29 @@ const recipesApi = createApi({
           };
         },
       }),
+      editRecipe: builder.mutation({
+        query: recipe => {
+          return {
+            url: '/updateRecipe',
+            body: {
+              name: recipe.name,
+              category: recipe.category,
+              subcategory: recipe.subcategory,
+              comments: recipe.comments,
+              type: recipe.type,
+              cuisine: recipe.cuisine,
+              prepMethod: recipe.prepMethod,
+              prepSteps: recipe.preparation,
+              rating: recipe.rating,
+              ingredients: recipe.ingredients,
+              servings: recipe.servings,
+              source: recipe.source,
+              advance: recipe.advance,
+            },
+            method: 'PUT',
+          };
+        },
+      }),
     };
   },
 });
@@ -62,6 +85,7 @@ const recipesApi = createApi({
 export const {
   useFetchRecipeQuery,
   useAddRecipeMutation,
+  useEditRecipeMutation,
   useFetchRecipeNamesQuery,
   useFetchCusinesQuery,
 } = recipesApi;

@@ -1,15 +1,36 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button, TextField } from '@mui/material';
 
-let steps = [{ prepStep: '' }];
+let steps = [];
 
-function Preparation({ onPreparationChange }) {
+function Preparation({ onPreparationChange, recipePrepStep }) {
   const [inputs, setInputs] = useState([{ item: '' }]);
   const [prepSteps, setPrepSteps] = useState([{ prepStep: '' }]);
 
+  let arr = [];
+  for (let i = 0; i < recipePrepStep.length; i++) {
+    arr[i] = i;
+    steps[i] = { prepStep: '' };
+  }
+
+  arr.forEach(i => {
+    steps[i].prepStep = recipePrepStep[i].name;
+  });
+
+  useEffect(() => {
+    const inp = arr.map(() => {
+      return { item: '' };
+    });
+    const prep = arr.map(i => {
+      return { prepStep: recipePrepStep[i].name };
+    });
+    setInputs(inp);
+    setPrepSteps(prep);
+  }, [recipePrepStep]);
+
   function handlePreparationChange(newStep, index) {
-    console.log(steps);
     steps[index] = newStep;
+    console.log(steps);
     setPrepSteps(prevSteps =>
       prevSteps.map((step, i) => {
         if (i === index) {

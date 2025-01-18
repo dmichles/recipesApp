@@ -1,4 +1,4 @@
-import { useAddRecipeMutation, useFetchRecipeQuery } from '../../../store';
+import { useEditRecipeMutation, useFetchRecipeQuery } from '../../../store';
 import { useState } from 'react';
 import Ingredient from './Ingredient';
 import Category from './Category';
@@ -18,8 +18,7 @@ let recipe = {};
 
 function EditForm() {
   const [recipeName, setRecipeName] = useState('');
-  const [addRecipe, results] = useAddRecipeMutation();
-  const [name, setName] = useState('');
+  const [updateRecipe, results] = useEditRecipeMutation();
 
   const [childKey1, setChildKey1] = useState(0);
   const [childKey2, setChildKey2] = useState(1);
@@ -80,6 +79,7 @@ function EditForm() {
 
   function onPreparationChange(prep) {
     recipe.preparation = prep;
+    console.log(recipe.preparation);
   }
 
   function onIngredientChange(ingredients) {
@@ -98,7 +98,7 @@ function EditForm() {
     prepMethod: '',
     prepSteps: '',
     rating: '',
-    ingredient: [{ name: '', quantity: 'none', unit: '' }],
+    ingredient: [{ name: '', quantity: '', unit: '' }],
     prepStep: [{ name: '' }],
   };
   if (isLoading) {
@@ -136,8 +136,9 @@ function EditForm() {
   }
   async function sendRecipe() {
     console.log(recipe);
-    const result = await addRecipe(recipe).unwrap();
+    const result = await updateRecipe(recipe).unwrap();
     console.log(result);
+    setRecipeName('');
 
     setChildKey1(prevKey => prevKey + 1);
     setChildKey2(prevKey => prevKey + 1);
@@ -223,7 +224,11 @@ function EditForm() {
         recipeIngredient={editRecipe.ingredient}
         key={childKey11}
       />
-      <Preparation onPreparationChange={onPreparationChange} key={childKey12} />
+      <Preparation
+        onPreparationChange={onPreparationChange}
+        recipePrepStep={editRecipe.prepStep}
+        key={childKey12}
+      />
       <div className='subcontainer'>
         <Button
           variant='contained'
