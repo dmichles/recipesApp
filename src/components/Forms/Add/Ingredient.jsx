@@ -16,7 +16,8 @@ const units = [
   },
   { value: 'tbsp', label: 'tablespoon' },
   { value: 'cup', label: 'cup' },
-  { value: 'floz', label: ' fluid ounce' },
+  { value: 'floz', label: 'fluid ounce' },
+  { value: 'gal', label: 'gallon'}
   { value: 'gram', label: 'gram' },
   { value: 'kg', label: 'kilogram' },
   { value: 'lit', label: 'liter' },
@@ -27,23 +28,6 @@ const units = [
   { value: 'qt', label: 'quart' },
 ];
 
-const quantities = [
-  { value: 'onequarter', label: '1/4' },
-  { value: 'onethird', label: '1/3' },
-  { value: 'half', label: '1/2' },
-  { value: 'twothirds', label: '2/3' },
-  { value: 'threequarters', label: '3/4' },
-  { value: 'one', label: '1' },
-  { value: 'two', label: '2' },
-  { value: 'three', label: '3' },
-  { value: 'four', label: '4' },
-  { value: 'five', label: '5' },
-  { value: 'six', label: '6' },
-  { value: 'seven', label: '7' },
-  { value: 'eight', label: '8' },
-  { value: 'nine', label: '9' },
-  { value: 'ten', label: '10' },
-];
 
 let ingredients = [{ name: '', quantity: '', unit: '' }];
 
@@ -65,10 +49,7 @@ function Ingredient({ onIngredientChange }) {
   const handleQuantityChange = (e, index) => {
     console.log(e.target.value);
 
-    const [quantity] = quantities
-      .filter(q => q.value === e.target.value)
-      .map(q => q.label);
-    ingredients[index].quantity = quantity;
+    ingredients[index].quantity = e.target.value;
     setQuantity(prevQty =>
       prevQty.map((qt, i) => {
         if (i === index) {
@@ -123,24 +104,16 @@ function Ingredient({ onIngredientChange }) {
           <div>
             <div className='select'>
               <div className='subselect'>
-                <FormControl>
-                  <InputLabel id='select-label1'>Select quantity</InputLabel>
-                  <Select
-                    size='small'
-                    sx={{ width: 160 }}
-                    label='Select quantity'
-                    value={quantity[index].qty}
-                    onChange={e => handleQuantityChange(e, index)}
-                  >
-                    {quantities.map(q => (
-                      <MenuItem key={q.value} value={q.value}>
-                        {q.label}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
+              <TextField
+                  label='Quantity'
+                  value={quantity[index].qty}
+                  onChange={e => handleQuantityChange(e, index)}
+                  size='small'
+                  sx={{ width: 160 }}
+                />
               </div>
               <div className='subselect'>
+                
                 <FormControl>
                   <InputLabel id='select-label2'>Select units</InputLabel>
                   <Select
