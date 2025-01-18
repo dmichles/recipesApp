@@ -16,7 +16,7 @@ import { Button } from '@mui/material';
 
 let recipe = {};
 
-function Form() {
+function AddForm() {
   const [addRecipe, results] = useAddRecipeMutation();
   const [childKey1, setChildKey1] = useState(0);
   const [childKey2, setChildKey2] = useState(1);
@@ -137,4 +137,4 @@ function Form() {
   );
 }
 
-export default Form;
+export default AddForm;

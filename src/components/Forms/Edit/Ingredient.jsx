@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Button,
   Select,
@@ -30,11 +30,43 @@ const units = [
 
 let ingredients = [{ name: '', quantity: '', unit: '' }];
 
-function Ingredient({ onIngredientChange }) {
+function Ingredient({ onIngredientChange, recipeIngredient }) {
   const [inputs, setInputs] = useState([{ item: '' }]);
   const [quantity, setQuantity] = useState([{ qty: '' }]);
   const [unit, setUnit] = useState([{ ut: '' }]);
   const [name, setName] = useState([{ nm: '' }]);
+
+  console.log(recipeIngredient[0].unit);
+
+  let arr = [];
+  for (let i = 0; i < recipeIngredient.length; i++) {
+    arr.push(i);
+  }
+
+  useEffect(() => {
+    const inp = arr.map(num => {
+      return { item: '' };
+    });
+    const qty = arr.map(num => {
+      return { qty: recipeIngredient[num].quantity };
+    });
+    const ut = arr.map(num => {
+      const [value] = units
+        .filter(u => u.label === recipeIngredient[num].unit)
+        .map(u => u.value);
+      return {
+        ut: value,
+      };
+    });
+    const nm = arr.map(num => {
+      return { nm: recipeIngredient[num].name };
+    });
+
+    setInputs(inp);
+    setQuantity(qty);
+    setUnit(ut);
+    setName(nm);
+  }, [recipeIngredient]);
 
   const handleAddInput = index => {
     setInputs([...inputs, { item: '' }]);
