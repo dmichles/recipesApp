@@ -58,6 +58,16 @@ function RecipeCard({ recipe }) {
                   </Typography>{' '}
                   {recipe.type}
                 </Typography>
+                <Typography
+                  variant='body'
+                  component='div'
+                  color='text.secondary'
+                >
+                  <Typography display='inline' fontWeight='bold'>
+                    How far in advance could be done:
+                  </Typography>{' '}
+                  {recipe.advance}
+                </Typography>
               </Stack>
               <Stack direction='column'>
                 <Typography

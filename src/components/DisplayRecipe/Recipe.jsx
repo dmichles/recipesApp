@@ -41,6 +41,7 @@ function Recipe() {
       recipe.rating = result.rating;
       recipe.servings = result.servings;
       recipe.source = result.source;
+      recipe.advance = result.advance;
       recipe.comments = result.comments;
       result.ingredients.map((ingredient, index) => {
         recipe.ingredient[index] = { name: '', quantity: '', unit: '' };

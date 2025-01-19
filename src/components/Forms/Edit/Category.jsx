@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-// import Select from 'react-select';
 import { Select, MenuItem, FormControl, InputLabel } from '@mui/material';
 
 const categories = [

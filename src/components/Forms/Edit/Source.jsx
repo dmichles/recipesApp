@@ -11,7 +11,6 @@ function Source({ onSourceChange, recipeSource }) {
   const handleSourceChange = source => {
     setSelectedSource(source);
     onSourceChange(source);
-    console.log(source);
   };
 
   return (

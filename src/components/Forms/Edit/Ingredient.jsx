@@ -51,8 +51,6 @@ function Ingredient({ onIngredientChange, recipeIngredient }) {
     ingredients[i].unit = value;
   });
 
-  console.log(recipeIngredient[0].quantity);
-
   useEffect(() => {
     const inp = arr.map(num => {
       return { item: '' };
@@ -80,14 +78,12 @@ function Ingredient({ onIngredientChange, recipeIngredient }) {
   }, [recipeIngredient]);
 
   const handleAddInput = index => {
-    console.log(index);
     setInputs([...inputs, { item: '' }]);
     setQuantity([...quantity, { qty: '' }]);
     setUnit([...unit, { ut: '' }]);
     setName([...name, { nm: '' }]);
-    console.log(ingredients);
+
     ingredients.push({ name: '', quantity: '', unit: '' });
-    console.log(ingredients);
   };
 
   const handleQuantityChange = (e, index) => {

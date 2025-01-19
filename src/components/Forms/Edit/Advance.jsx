@@ -10,6 +10,7 @@ function Advance({ onAdvanceChange, recipeAdvance }) {
 
   const handleAdvanceChange = advance => {
     setSelectedAdvance(advance);
+    console.log(advance);
     onAdvanceChange(advance);
   };
 

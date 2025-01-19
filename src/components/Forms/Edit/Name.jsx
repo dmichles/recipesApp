@@ -10,17 +10,11 @@ function Name({ onNameChange, recipeName }) {
     setSelectedName(recipeName);
   }, [recipeName]);
 
-  const handleNameChange = name => {
-    setSelectedName(name);
-    onNameChange(name);
-  };
-
   return (
     <div>
       <TextField
         value={selectedName}
-        onChange={e => handleNameChange(e.target.value)}
-        label='Recipe name'
+        aria-readonly
         size='small'
         sx={{ width: 488 }}
       />

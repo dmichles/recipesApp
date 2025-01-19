@@ -20,7 +20,6 @@ function Cuisine({ onCuisineChange, recipeCuisine }) {
     console.log('Error loading data');
   } else if (!isLoading) {
     const result = data;
-    console.log(result);
 
     result.map((cuisine, index) => {
       cuisines[index] = { value: '', label: '' };

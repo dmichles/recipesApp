@@ -15,6 +15,11 @@ import Preparation from './Preparation';
 import { Button, TextField } from '@mui/material';
 
 let recipe = {};
+recipe.ingredient = [];
+recipe.prepStep = [];
+let editRecipe = {};
+editRecipe.ingredient = [];
+editRecipe.prepStep = [];
 
 function EditForm() {
   const [recipeName, setRecipeName] = useState('');
@@ -67,6 +72,7 @@ function EditForm() {
 
   function onAdvanceChange(advance) {
     recipe.advance = advance;
+    console.log(recipe.advance);
   }
 
   function onNameChange(name) {
@@ -78,29 +84,19 @@ function EditForm() {
   }
 
   function onPreparationChange(prep) {
-    recipe.preparation = prep;
-    console.log(recipe.preparation);
+    recipe.prepStep = prep;
+    console.log(recipe.prepStep);
   }
 
-  function onIngredientChange(ingredients) {
-    recipe.ingredients = ingredients;
+  function onIngredientChange(ingredient) {
+    recipe.ingredient = ingredient;
     console.log(recipe);
   }
 
   const { data, error, isLoading } = useFetchRecipeQuery(recipeName);
   let result = null;
-  let editRecipe = {
-    name: '',
-    category: '',
-    subcategory: '',
-    type: '',
-    cuisine: '',
-    prepMethod: '',
-    prepSteps: '',
-    rating: '',
-    ingredient: [{ name: '', quantity: '', unit: '' }],
-    prepStep: [{ name: '' }],
-  };
+  recipe.prepStep[0] = { name: '' };
+  recipe.ingredient[0] = { name: '', quantity: '', unit: '' };
   if (isLoading) {
     console.log('Loading data');
   } else if (error) {
@@ -109,35 +105,35 @@ function EditForm() {
     result = data;
     console.log(result);
     if (result !== null) {
-      editRecipe.name = result.name;
-      console.log(editRecipe.name);
-      editRecipe.category = result.category;
-      editRecipe.subcategory = result.subcategory;
-      editRecipe.type = result.type;
-      editRecipe.cuisine = result.cuisine;
-      editRecipe.prepMethod = result.prepMethod;
-      editRecipe.comments = result.comments;
-      editRecipe.rating = result.rating;
-      editRecipe.servings = result.servings;
-      editRecipe.source = result.source;
-      editRecipe.advance = result.advance;
-      editRecipe.comments = result.comments;
+      recipe.name = result.name;
+      recipe.category = result.category;
+      recipe.subcategory = result.subcategory;
+      recipe.type = result.type;
+      recipe.cuisine = result.cuisine;
+      recipe.prepMethod = result.prepMethod;
+      recipe.comments = result.comments;
+      recipe.rating = result.rating;
+      recipe.servings = result.servings;
+      recipe.source = result.source;
+      recipe.advance = result.advance;
+      recipe.comments = result.comments;
       result.ingredients.map((ingredient, index) => {
-        editRecipe.ingredient[index] = { name: '', quantity: '', unit: '' };
-        editRecipe.ingredient[index].quantity = ingredient.quantity;
-        editRecipe.ingredient[index].unit = ingredient.unit;
-        editRecipe.ingredient[index].name = ingredient.name;
+        recipe.ingredient[index] = { name: '', quantity: '', unit: '' };
+        recipe.ingredient[index].quantity = ingredient.quantity;
+        recipe.ingredient[index].unit = ingredient.unit;
+        recipe.ingredient[index].name = ingredient.name;
       });
       result.prepSteps.map((prepStep, index) => {
-        editRecipe.prepStep[index] = { name: '' };
-        editRecipe.prepStep[index].name = prepStep.prepStep;
+        recipe.prepStep[index] = { name: prepStep.prepStep };
       });
+      editRecipe.ingredient = recipe.ingredient;
+      editRecipe.prepStep = recipe.prepStep;
     }
   }
   async function sendRecipe() {
     console.log(recipe);
-    const result = await updateRecipe(recipe).unwrap();
-    console.log(result);
+    // const result = await updateRecipe(recipe).unwrap();
+    // console.log(result);
     setRecipeName('');
 
     setChildKey1(prevKey => prevKey + 1);
@@ -153,7 +149,7 @@ function EditForm() {
     setChildKey11(prevKey => prevKey + 1);
     setChildKey12(prevKey => prevKey + 1);
 
-    alert(result.message);
+    // alert(result.message);
   }
 
   return (
@@ -169,54 +165,54 @@ function EditForm() {
       </div>
       <Name
         onNameChange={onNameChange}
-        recipeName={editRecipe.name}
+        recipeName={recipe.name}
         key={childKey1}
       />
       <Category
         onCategoryChange={onCategoryChange}
-        categoryValue={editRecipe.category}
+        categoryValue={recipe.category}
         onSubcategoryChange={onSubcategoryChange}
-        subcategoryValue={editRecipe.subcategory}
+        subcategoryValue={recipe.subcategory}
         key={childKey2}
       />
       <Type
         onTypeChange={onTypeChange}
-        recipeType={editRecipe.type}
+        recipeType={recipe.type}
         key={childKey3}
       />
       <PrepMethod
         onPrepMethodChange={onPrepMethodChange}
-        recipePrepMethod={editRecipe.prepMethod}
+        recipePrepMethod={recipe.prepMethod}
         key={childKey4}
       />
       <Cuisine
         onCuisineChange={onCuisineChange}
-        recipeCuisine={editRecipe.cuisine}
+        recipeCuisine={recipe.cuisine}
         key={childKey5}
       />
       <RatingComp
         onRatingChange={onRatingChange}
-        recipeRating={editRecipe.rating}
+        recipeRating={recipe.rating}
         key={childKey6}
       />
       <Serving
         onServingChange={onServingChange}
-        recipeServing={editRecipe.servings}
+        recipeServing={recipe.servings}
         key={childKey7}
       />
       <Source
         onSourceChange={onSourceChange}
-        recipeSource={editRecipe.source}
+        recipeSource={recipe.source}
         key={childKey8}
       />
       <Advance
         onAdvanceChange={onAdvanceChange}
-        recipeAdvance={editRecipe.advance}
+        recipeAdvance={recipe.advance}
         key={childKey9}
       />
       <Comments
         onCommentChange={onCommentChange}
-        recipeComments={editRecipe.comments}
+        recipeComments={recipe.comments}
         key={childKey10}
       />
       <Ingredient

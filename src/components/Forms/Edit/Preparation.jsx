@@ -7,6 +7,7 @@ function Preparation({ onPreparationChange, recipePrepStep }) {
   const [inputs, setInputs] = useState([{ item: '' }]);
   const [prepSteps, setPrepSteps] = useState([{ prepStep: '' }]);
 
+  console.log(recipePrepStep);
   let arr = [];
   for (let i = 0; i < recipePrepStep.length; i++) {
     arr[i] = i;
@@ -15,22 +16,25 @@ function Preparation({ onPreparationChange, recipePrepStep }) {
 
   arr.forEach(i => {
     steps[i].prepStep = recipePrepStep[i].name;
+    console.log(steps[i].prepStep);
   });
 
   useEffect(() => {
+    console.log('here');
     const inp = arr.map(() => {
       return { item: '' };
     });
     const prep = arr.map(i => {
       return { prepStep: recipePrepStep[i].name };
     });
+    console.log(prep);
     setInputs(inp);
     setPrepSteps(prep);
   }, [recipePrepStep]);
 
   function handlePreparationChange(newStep, index) {
     steps[index] = newStep;
-    console.log(steps);
+
     setPrepSteps(prevSteps =>
       prevSteps.map((step, i) => {
         if (i === index) {
@@ -47,7 +51,6 @@ function Preparation({ onPreparationChange, recipePrepStep }) {
     setInputs([...inputs, { item: '' }]);
     setPrepSteps([...prepSteps, { prepStep: '' }]);
     steps.push({ prepStep: '' });
-    console.log(steps);
   }
 
   return (
