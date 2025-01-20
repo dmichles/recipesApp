@@ -1,5 +1,5 @@
 import { useEditRecipeMutation, useFetchRecipeQuery } from '../../../store';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import Ingredient from './Ingredient';
 import Category from './Category';
 import Type from './Type';
@@ -24,19 +24,6 @@ editRecipe.prepStep = [];
 function EditForm() {
   const [recipeName, setRecipeName] = useState('');
   const [updateRecipe, results] = useEditRecipeMutation();
-
-  const [childKey1, setChildKey1] = useState(0);
-  const [childKey2, setChildKey2] = useState(1);
-  const [childKey3, setChildKey3] = useState(2);
-  const [childKey4, setChildKey4] = useState(3);
-  const [childKey5, setChildKey5] = useState(4);
-  const [childKey6, setChildKey6] = useState(5);
-  const [childKey7, setChildKey7] = useState(6);
-  const [childKey8, setChildKey8] = useState(7);
-  const [childKey9, setChildKey9] = useState(8);
-  const [childKey10, setChildKey10] = useState(9);
-  const [childKey11, setChildKey11] = useState(10);
-  const [childKey12, setChildKey12] = useState(11);
 
   function onCategoryChange(category) {
     recipe.category = category;
@@ -72,7 +59,6 @@ function EditForm() {
 
   function onAdvanceChange(advance) {
     recipe.advance = advance;
-    console.log(recipe.advance);
   }
 
   function onNameChange(name) {
@@ -85,18 +71,16 @@ function EditForm() {
 
   function onPreparationChange(prep) {
     recipe.prepStep = prep;
-    console.log(recipe.prepStep);
   }
 
   function onIngredientChange(ingredient) {
     recipe.ingredient = ingredient;
-    console.log(recipe);
   }
 
   const { data, error, isLoading } = useFetchRecipeQuery(recipeName);
   let result = null;
-  recipe.prepStep[0] = { name: '' };
-  recipe.ingredient[0] = { name: '', quantity: '', unit: '' };
+  // recipe.prepStep[0] = { name: '' };
+  // recipe.ingredient[0] = { name: '', quantity: '', unit: '' };
   if (isLoading) {
     console.log('Loading data');
   } else if (error) {
@@ -118,38 +102,42 @@ function EditForm() {
       recipe.advance = result.advance;
       recipe.comments = result.comments;
       result.ingredients.map((ingredient, index) => {
-        recipe.ingredient[index] = { name: '', quantity: '', unit: '' };
-        recipe.ingredient[index].quantity = ingredient.quantity;
-        recipe.ingredient[index].unit = ingredient.unit;
-        recipe.ingredient[index].name = ingredient.name;
+        recipe.ingredient[index] = {
+          name: ingredient.name,
+          quantity: ingredient.quantity,
+          unit: ingredient.unit,
+        };
       });
       result.prepSteps.map((prepStep, index) => {
         recipe.prepStep[index] = { name: prepStep.prepStep };
       });
       editRecipe.ingredient = recipe.ingredient;
       editRecipe.prepStep = recipe.prepStep;
+      console.log(recipe.prepStep);
     }
   }
-  async function sendRecipe() {
-    console.log(recipe);
-    // const result = await updateRecipe(recipe).unwrap();
+  function sendRecipe() {
+    console.log(recipe.prepStep);
+    updateRecipe(recipe);
     // console.log(result);
     setRecipeName('');
 
-    setChildKey1(prevKey => prevKey + 1);
-    setChildKey2(prevKey => prevKey + 1);
-    setChildKey3(prevKey => prevKey + 1);
-    setChildKey4(prevKey => prevKey + 1);
-    setChildKey5(prevKey => prevKey + 1);
-    setChildKey6(prevKey => prevKey + 1);
-    setChildKey7(prevKey => prevKey + 1);
-    setChildKey8(prevKey => prevKey + 1);
-    setChildKey9(prevKey => prevKey + 1);
-    setChildKey10(prevKey => prevKey + 1);
-    setChildKey11(prevKey => prevKey + 1);
-    setChildKey12(prevKey => prevKey + 1);
-
-    // alert(result.message);
+    recipe.name = '';
+    recipe.category = '';
+    recipe.subcategory = '';
+    recipe.type = '';
+    recipe.cuisine = '';
+    recipe.prepMethod = '';
+    recipe.comments = '';
+    recipe.rating = '';
+    recipe.servings = '';
+    recipe.source = '';
+    recipe.advance = '';
+    recipe.comments = '';
+    recipe.ingredient = [];
+    recipe.prepStep = [];
+    editRecipe.ingredient = [];
+    editRecipe.prepStep = [];
   }
 
   return (
@@ -163,67 +151,46 @@ function EditForm() {
           onChange={e => setRecipeName(e.target.value)}
         />
       </div>
-      <Name
-        onNameChange={onNameChange}
-        recipeName={recipe.name}
-        key={childKey1}
-      />
+      <Name onNameChange={onNameChange} recipeName={recipe.name} />
       <Category
         onCategoryChange={onCategoryChange}
         categoryValue={recipe.category}
         onSubcategoryChange={onSubcategoryChange}
         subcategoryValue={recipe.subcategory}
-        key={childKey2}
       />
-      <Type
-        onTypeChange={onTypeChange}
-        recipeType={recipe.type}
-        key={childKey3}
-      />
+      <Type onTypeChange={onTypeChange} recipeType={recipe.type} />
       <PrepMethod
         onPrepMethodChange={onPrepMethodChange}
         recipePrepMethod={recipe.prepMethod}
-        key={childKey4}
       />
       <Cuisine
         onCuisineChange={onCuisineChange}
         recipeCuisine={recipe.cuisine}
-        key={childKey5}
       />
       <RatingComp
         onRatingChange={onRatingChange}
         recipeRating={recipe.rating}
-        key={childKey6}
       />
       <Serving
         onServingChange={onServingChange}
         recipeServing={recipe.servings}
-        key={childKey7}
       />
-      <Source
-        onSourceChange={onSourceChange}
-        recipeSource={recipe.source}
-        key={childKey8}
-      />
+      <Source onSourceChange={onSourceChange} recipeSource={recipe.source} />
       <Advance
         onAdvanceChange={onAdvanceChange}
         recipeAdvance={recipe.advance}
-        key={childKey9}
       />
       <Comments
         onCommentChange={onCommentChange}
         recipeComments={recipe.comments}
-        key={childKey10}
       />
       <Ingredient
         onIngredientChange={onIngredientChange}
         recipeIngredient={editRecipe.ingredient}
-        key={childKey11}
       />
       <Preparation
         onPreparationChange={onPreparationChange}
         recipePrepStep={editRecipe.prepStep}
-        key={childKey12}
       />
       <div className='subcontainer'>
         <Button
