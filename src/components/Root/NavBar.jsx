@@ -1,17 +1,32 @@
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 function NavBar() {
   return (
     <div className='navbar'>
-      <Link to='/add' className='navbar-link'>
+      <NavLink
+        to='/add'
+        className={navData =>
+          navData.isActive ? 'navbar-link-active' : 'navbar-link'
+        }
+      >
         Add recipe
-      </Link>
-      {/* <Link to='/edit' className='navbar-link'>
+      </NavLink>
+      <NavLink
+        to='/edit'
+        className={navData =>
+          navData.isActive ? 'navbar-link-active' : 'navbar-link'
+        }
+      >
         Edit recipe
-      </Link> */}
-      <Link to='/Recipe' className='navbar-link'>
+      </NavLink>
+      <NavLink
+        to='/Recipe'
+        className={navData =>
+          navData.isActive ? 'navbar-link-active' : 'navbar-link'
+        }
+      >
         Lookup recipe
-      </Link>
+      </NavLink>
     </div>
   );
 }

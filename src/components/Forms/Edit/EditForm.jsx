@@ -1,5 +1,5 @@
 import { useEditRecipeMutation, useFetchRecipeQuery } from '../../../store';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import Ingredient from './Ingredient';
 import Category from './Category';
 import Type from './Type';
@@ -87,8 +87,9 @@ function EditForm() {
     console.log('Error loading data');
   } else if (!isLoading) {
     result = data;
-    console.log(result);
+    // console.log(result);
     if (result !== null) {
+      recipe.id = result.id;
       recipe.name = result.name;
       recipe.category = result.category;
       recipe.subcategory = result.subcategory;
@@ -103,25 +104,30 @@ function EditForm() {
       recipe.comments = result.comments;
       result.ingredients.map((ingredient, index) => {
         recipe.ingredient[index] = {
+          id: ingredient.id,
           name: ingredient.name,
           quantity: ingredient.quantity,
           unit: ingredient.unit,
         };
       });
       result.prepSteps.map((prepStep, index) => {
-        recipe.prepStep[index] = { name: prepStep.prepStep };
+        recipe.prepStep[index] = {
+          id: prepStep.id,
+          prepStep: prepStep.prepStep,
+        };
       });
       editRecipe.ingredient = recipe.ingredient;
       editRecipe.prepStep = recipe.prepStep;
-      console.log(recipe.prepStep);
+      console.log(recipe);
     }
   }
   function sendRecipe() {
-    console.log(recipe.prepStep);
+    console.log(recipe);
     updateRecipe(recipe);
     // console.log(result);
     setRecipeName('');
 
+    recipe.id = '';
     recipe.name = '';
     recipe.category = '';
     recipe.subcategory = '';
@@ -151,57 +157,64 @@ function EditForm() {
           onChange={e => setRecipeName(e.target.value)}
         />
       </div>
-      <Name onNameChange={onNameChange} recipeName={recipe.name} />
-      <Category
-        onCategoryChange={onCategoryChange}
-        categoryValue={recipe.category}
-        onSubcategoryChange={onSubcategoryChange}
-        subcategoryValue={recipe.subcategory}
-      />
-      <Type onTypeChange={onTypeChange} recipeType={recipe.type} />
-      <PrepMethod
-        onPrepMethodChange={onPrepMethodChange}
-        recipePrepMethod={recipe.prepMethod}
-      />
-      <Cuisine
-        onCuisineChange={onCuisineChange}
-        recipeCuisine={recipe.cuisine}
-      />
-      <RatingComp
-        onRatingChange={onRatingChange}
-        recipeRating={recipe.rating}
-      />
-      <Serving
-        onServingChange={onServingChange}
-        recipeServing={recipe.servings}
-      />
-      <Source onSourceChange={onSourceChange} recipeSource={recipe.source} />
-      <Advance
-        onAdvanceChange={onAdvanceChange}
-        recipeAdvance={recipe.advance}
-      />
-      <Comments
-        onCommentChange={onCommentChange}
-        recipeComments={recipe.comments}
-      />
-      <Ingredient
-        onIngredientChange={onIngredientChange}
-        recipeIngredient={editRecipe.ingredient}
-      />
-      <Preparation
-        onPreparationChange={onPreparationChange}
-        recipePrepStep={editRecipe.prepStep}
-      />
-      <div className='subcontainer'>
-        <Button
-          variant='contained'
-          size='medium'
-          onClick={sendRecipe}
-          className='button-ingredient'
-        >
-          Submit Recipe
-        </Button>
-      </div>
+      {result && (
+        <div>
+          <Name onNameChange={onNameChange} recipeName={recipe.name} />
+          <Category
+            onCategoryChange={onCategoryChange}
+            categoryValue={recipe.category}
+            onSubcategoryChange={onSubcategoryChange}
+            subcategoryValue={recipe.subcategory}
+          />
+          <Type onTypeChange={onTypeChange} recipeType={recipe.type} />
+          <PrepMethod
+            onPrepMethodChange={onPrepMethodChange}
+            recipePrepMethod={recipe.prepMethod}
+          />
+          <Cuisine
+            onCuisineChange={onCuisineChange}
+            recipeCuisine={recipe.cuisine}
+          />
+          <RatingComp
+            onRatingChange={onRatingChange}
+            recipeRating={recipe.rating}
+          />
+          <Serving
+            onServingChange={onServingChange}
+            recipeServing={recipe.servings}
+          />
+          <Source
+            onSourceChange={onSourceChange}
+            recipeSource={recipe.source}
+          />
+          <Advance
+            onAdvanceChange={onAdvanceChange}
+            recipeAdvance={recipe.advance}
+          />
+          <Comments
+            onCommentChange={onCommentChange}
+            recipeComments={recipe.comments}
+          />
+          <Ingredient
+            onIngredientChange={onIngredientChange}
+            recipeIngredient={editRecipe.ingredient}
+          />
+          <Preparation
+            onPreparationChange={onPreparationChange}
+            recipePrepStep={editRecipe.prepStep}
+          />
+          <div className='subcontainer'>
+            <Button
+              variant='contained'
+              size='medium'
+              onClick={sendRecipe}
+              className='button-ingredient'
+            >
+              Submit Recipe
+            </Button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

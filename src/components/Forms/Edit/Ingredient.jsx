@@ -1,12 +1,5 @@
 import { useEffect, useState } from 'react';
-import {
-  Button,
-  Select,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  TextField,
-} from '@mui/material';
+import { Button, FormControl, MenuItem, TextField } from '@mui/material';
 
 const units = [
   { value: 'none', label: 'none' },
@@ -35,21 +28,23 @@ function Ingredient({ onIngredientChange, recipeIngredient }) {
   const [quantity, setQuantity] = useState([{ qty: '' }]);
   const [unit, setUnit] = useState([{ ut: '' }]);
   const [name, setName] = useState([{ nm: '' }]);
+  const [ingredients, setIngredients] = useState(recipeIngredient);
 
   let arr = [];
   for (let i = 0; i < recipeIngredient.length; i++) {
     arr[i] = i;
-    ingredients[i] = { name: '', quantity: '', unit: '' };
+    //   ingredients[i] = { id: '', name: '', quantity: '', unit: '' };
   }
 
-  arr.forEach(i => {
-    ingredients[i].name = recipeIngredient[i].name;
-    ingredients[i].quanity = recipeIngredient[i].quantity;
-    const [value] = units
-      .filter(u => u.label === recipeIngredient[i].unit)
-      .map(u => u.value);
-    ingredients[i].unit = value;
-  });
+  // arr.forEach(i => {
+  //   ingredients[i].id = recipeIngredient[i].id;
+  //   ingredients[i].name = recipeIngredient[i].name;
+  //   ingredients[i].quantity = recipeIngredient[i].quantity;
+  //   const [value] = units
+  //     .filter(u => u.label === recipeIngredient[i].unit)
+  //     .map(u => u.value);
+  //   ingredients[i].unit = value;
+  // });
 
   useEffect(() => {
     const inp = arr.map(num => {
@@ -83,14 +78,29 @@ function Ingredient({ onIngredientChange, recipeIngredient }) {
     setUnit([...unit, { ut: '' }]);
     setName([...name, { nm: '' }]);
 
-    ingredients.push({ name: '', quantity: '', unit: '' });
+    setIngredients([
+      ...ingredients,
+      {
+        id: '0',
+        name: '',
+        quantity: '',
+        unit: '',
+      },
+    ]);
   };
 
   const handleQuantityChange = (e, index) => {
+    const ings = ingredients.map((item, i) => {
+      if (i === index) {
+        return { ...item, quantity: e.target.value };
+      } else {
+        return item;
+      }
+    });
+    setIngredients(ings);
+
     console.log(e.target.value);
-    console.log(quantity);
-    console.log(ingredients);
-    ingredients[index].quantity = e.target.value;
+    console.log(ings);
     setQuantity(prevQty =>
       prevQty.map((qt, i) => {
         if (i === index) {
@@ -100,8 +110,8 @@ function Ingredient({ onIngredientChange, recipeIngredient }) {
         }
       })
     );
-    console.log(quantity);
-    onIngredientChange(ingredients);
+    console.log(ingredients);
+    onIngredientChange(ings);
   };
 
   const handleUnitChange = (e, index) => {
@@ -109,8 +119,17 @@ function Ingredient({ onIngredientChange, recipeIngredient }) {
     const [unit] = units
       .filter(u => u.value === e.target.value)
       .map(u => u.label);
-    ingredients[index].unit = unit;
-    onIngredientChange(ingredients);
+    const ings = ingredients.map((item, i) => {
+      if (i === index) {
+        return { ...item, unit: unit };
+      } else {
+        return item;
+      }
+    });
+
+    setIngredients(ings);
+    onIngredientChange(ings);
+
     setUnit(prevUnit =>
       prevUnit.map((unt, i) => {
         if (i === index) {
@@ -123,10 +142,17 @@ function Ingredient({ onIngredientChange, recipeIngredient }) {
   };
 
   const handleNameChange = (e, index) => {
-    console.log(e);
-    ingredients[index].name = e;
-    console.log(ingredients[index].name);
-    onIngredientChange(ingredients);
+    const ings = ingredients.map((item, i) => {
+      if (i === index) {
+        return { ...item, name: e };
+      } else {
+        return item;
+      }
+    });
+
+    setIngredients(ings);
+    onIngredientChange(ings);
+
     setName(prevName =>
       prevName.map((nam, i) => {
         if (i === index) {

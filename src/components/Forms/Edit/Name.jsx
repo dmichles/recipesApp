@@ -3,18 +3,20 @@ import { TextField, InputLabel } from '@mui/material';
 
 function Name({ onNameChange, recipeName }) {
   const [selectedName, setSelectedName] = useState(recipeName);
-  console.log(recipeName);
-  console.log(selectedName);
 
   useEffect(() => {
     setSelectedName(recipeName);
   }, [recipeName]);
 
+  const handleNameChange = e => {
+    onNameChange(e.target.value);
+  };
+
   return (
     <div>
       <TextField
         value={selectedName}
-        aria-readonly
+        onChange={handleNameChange}
         size='small'
         sx={{ width: 488 }}
       />

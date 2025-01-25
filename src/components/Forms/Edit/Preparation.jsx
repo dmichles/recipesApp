@@ -6,18 +6,19 @@ let steps = [];
 function Preparation({ onPreparationChange, recipePrepStep }) {
   const [inputs, setInputs] = useState([{ item: '' }]);
   const [prepSteps, setPrepSteps] = useState([{ prepStep: '' }]);
+  const [steps, setSteps] = useState(recipePrepStep);
 
   console.log(recipePrepStep);
   let arr = [];
   for (let i = 0; i < recipePrepStep.length; i++) {
     arr[i] = i;
-    steps[i] = { prepStep: '' };
+    // steps[i] = { id: '', prepStep: '' };
   }
 
-  arr.forEach(i => {
-    steps[i].prepStep = recipePrepStep[i].name;
-    console.log(steps[i].prepStep);
-  });
+  // arr.forEach(i => {
+  //   steps[i].id = recipePrepStep[i].id;
+  //   steps[i].prepStep = recipePrepStep[i].prepStep;
+  // });
 
   useEffect(() => {
     console.log('here');
@@ -25,7 +26,7 @@ function Preparation({ onPreparationChange, recipePrepStep }) {
       return { item: '' };
     });
     const prep = arr.map(i => {
-      return { prepStep: recipePrepStep[i].name };
+      return { prepStep: recipePrepStep[i].prepStep };
     });
     console.log(prep);
     setInputs(inp);
@@ -33,24 +34,31 @@ function Preparation({ onPreparationChange, recipePrepStep }) {
   }, [recipePrepStep]);
 
   function handlePreparationChange(newStep, index) {
-    steps[index] = newStep;
+    const st = steps.map((item, i) => {
+      if (i === index) {
+        return { ...item, prepStep: newStep };
+      } else {
+        return item;
+      }
+    });
+    setSteps(st);
 
     setPrepSteps(prevSteps =>
       prevSteps.map((step, i) => {
         if (i === index) {
-          return { ...step, ...newStep };
+          return { ...step, prepStep: newStep };
         } else {
           return step;
         }
       })
     );
-    onPreparationChange(steps);
+    onPreparationChange(st);
   }
 
   function handleAddInput() {
     setInputs([...inputs, { item: '' }]);
     setPrepSteps([...prepSteps, { prepStep: '' }]);
-    steps.push({ prepStep: '' });
+    setSteps([...steps, { id: '0', prepStep: '' }]);
   }
 
   return (
@@ -64,9 +72,7 @@ function Preparation({ onPreparationChange, recipePrepStep }) {
               sx={{ width: 488 }}
               label={`Preparation step ${index + 1}`}
               value={prepSteps[index].prepStep}
-              onChange={e =>
-                handlePreparationChange({ prepStep: e.target.value }, index)
-              }
+              onChange={e => handlePreparationChange(e.target.value, index)}
             />
           </div>
           {index === inputs.length - 1 && (
