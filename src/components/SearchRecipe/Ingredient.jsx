@@ -1,13 +1,12 @@
 import { useState } from 'react';
 import { TextField } from '@mui/material';
 
-function FindRecipeByName({ onChange }) {
+function Ingredient({ onIngredientChange }) {
   const [input, setInput] = useState('');
 
   function onChangeInput(e) {
-    console.log(e.target.value);
     setInput(e.target.value);
-    onChange(e.target.value);
+    onIngredientChange(e.target.value);
   }
 
   return (
@@ -16,13 +15,13 @@ function FindRecipeByName({ onChange }) {
         id='outlined-input-field'
         value={input}
         onChange={onChangeInput}
-        label='Search recipe by name'
+        label='Search by ingredient'
         variant='outlined'
         size='small'
-        sx={{ width: 300 }}
+        sx={{ width: 488 }}
       />
     </div>
   );
 }
 
-export default FindRecipeByName;
+export default Ingredient;

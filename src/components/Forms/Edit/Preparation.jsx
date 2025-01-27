@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Button, TextField } from '@mui/material';
 
-let steps = [];
-
 function Preparation({ onPreparationChange, recipePrepStep }) {
   const [inputs, setInputs] = useState([{ item: '' }]);
   const [prepSteps, setPrepSteps] = useState([{ prepStep: '' }]);

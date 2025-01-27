@@ -19,9 +19,8 @@ const units = [
   { value: 'pt', label: 'pint' },
   { value: 'pnd', label: 'pound' },
   { value: 'qt', label: 'quart' },
+  { value: 'pie', label: 'piece' },
 ];
-
-let ingredients = [];
 
 function Ingredient({ onIngredientChange, recipeIngredient }) {
   const [inputs, setInputs] = useState([{ item: '' }]);

@@ -17,9 +17,16 @@ const recipesApi = createApi({
         },
       }),
       fetchRecipeNames: builder.query({
-        query: () => {
+        query: query => {
           return {
             url: '/getRecipeNames',
+            params: {
+              category: query.category,
+              subcategory: query.subcategory,
+              type: query.type,
+              prepMethod: query.prepMethod,
+              ingredient: query.ingredient,
+            },
             method: 'GET',
           };
         },

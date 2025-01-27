@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { Select, FormControl, InputLabel, MenuItem } from '@mui/material';
-import { useFetchRecipeNamesQuery } from '../../store';
 
-function SelectRecipe({ onChange }) {
+function SelectRecipe({ onChange, recipeNames }) {
   const [selectedRecipe, setSelectedRecipe] = useState('');
 
   const doChange = e => {
@@ -14,31 +13,14 @@ function SelectRecipe({ onChange }) {
     );
   };
 
-  const { data, error, isLoading } = useFetchRecipeNamesQuery();
-  let recipeNames = [];
-  if (isLoading) {
-    console.log('Loading data');
-  } else if (error) {
-    console.log('Error loading data');
-  } else if (!isLoading) {
-    const result = data;
-    console.log(data);
-    result.map((item, index) => {
-      recipeNames[index] = { value: '1', label: '' };
-      recipeNames[index].value = index.toString();
-      recipeNames[index].label = item.name;
-      console.log(recipeNames);
-    });
-  }
-
   return (
-    <div>
+    <div className='select'>
       <FormControl>
         <InputLabel id='select-label'>Select recipe</InputLabel>
         <Select
           labelId='select-label'
           size='small'
-          sx={{ width: 300 }}
+          sx={{ width: 488 }}
           value={selectedRecipe}
           label='Select recipe'
           onChange={doChange}
