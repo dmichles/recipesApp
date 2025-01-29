@@ -7,6 +7,7 @@ import Category from './Category';
 import Type from './Type';
 import PrepMethod from './PrepMethod';
 import Ingredient from './Ingredient';
+import Cuisine from './Cuisine';
 
 function Recipe() {
   const [recipeValue, setRecipeValue] = useState('');
@@ -15,6 +16,7 @@ function Recipe() {
     subcategory: '',
     type: '',
     prepMethod: '',
+    cuisine: '',
     ingredient: '',
   });
 
@@ -124,6 +126,9 @@ function Recipe() {
   const onIngredientChange = ingredient => {
     setQuery(prev => ({ ...prev, ingredient: ingredient }));
   };
+  const onCuisineChange = cuisine => {
+    setQuery(prev => ({ ...prev, cuisine: cuisine }));
+  };
 
   return (
     <div className='recipe'>
@@ -133,6 +138,7 @@ function Recipe() {
         onSubcategoryChange={onSubcategoryChange}
       />
       <Type onTypeChange={onTypeChange} />
+      <Cuisine onCuisineChange={onCuisineChange} />
       <PrepMethod onPrepMethodChange={onPrepMethodChange} />
       <Ingredient onIngredientChange={onIngredientChange} />
       <SelectRecipe recipeNames={recipeNames} onChange={onChangeSelect} />

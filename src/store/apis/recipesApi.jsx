@@ -25,6 +25,7 @@ const recipesApi = createApi({
               subcategory: query.subcategory,
               type: query.type,
               prepMethod: query.prepMethod,
+              cuisine: query.cuisine,
               ingredient: query.ingredient,
             },
             method: 'GET',
