@@ -9,7 +9,7 @@ import {
 
 function RecipeCard({ recipe }) {
   return (
-    <div>
+    <div className='recipe-card'>
       <Card variant='outlined' sx={{ width: 790 }}>
         <CardContent sx={{ height: '100%' }}>
           <>

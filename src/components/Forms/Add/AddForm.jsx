@@ -130,7 +130,7 @@ function AddForm() {
           onClick={sendRecipe}
           className='button-ingredient'
         >
-          Submit Recipe
+          Save Recipe
         </Button>
       </div>
     </div>

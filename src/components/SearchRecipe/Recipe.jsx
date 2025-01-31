@@ -131,7 +131,7 @@ function Recipe() {
   };
 
   return (
-    <div className='recipe'>
+    <div>
       <FindRecipeByName onChange={onChangeName} />
       <Category
         onCategoryChange={onCategoryChange}

@@ -8,6 +8,7 @@ const recipesApi = createApi({
   endpoints(builder) {
     return {
       fetchRecipe: builder.query({
+        providesTags: ['recipe'],
         query: name => {
           return {
             url: '/getRecipe',
@@ -64,6 +65,7 @@ const recipesApi = createApi({
         },
       }),
       editRecipe: builder.mutation({
+        invalidatesTags: ['recipe'],
         query: recipe => {
           return {
             url: '/updateRecipe',
