@@ -15,6 +15,7 @@ export {
   useFetchRecipeQuery,
   useAddRecipeMutation,
   useEditRecipeMutation,
+  useFetchRecipeNamesByParamsQuery,
   useFetchRecipeNamesQuery,
   useFetchCusinesQuery,
 } from './apis/recipesApi';

@@ -17,10 +17,10 @@ const recipesApi = createApi({
           };
         },
       }),
-      fetchRecipeNames: builder.query({
+      fetchRecipeNamesByParams: builder.query({
         query: query => {
           return {
-            url: '/getRecipeNames',
+            url: '/getRecipeNamesByParams',
             params: {
               category: query.category,
               subcategory: query.subcategory,
@@ -28,6 +28,17 @@ const recipesApi = createApi({
               prepMethod: query.prepMethod,
               cuisine: query.cuisine,
               ingredient: query.ingredient,
+            },
+            method: 'GET',
+          };
+        },
+      }),
+      fetchRecipeNames: builder.query({
+        query: name => {
+          return {
+            url: '/getRecipeNames',
+            params: {
+              name: name,
             },
             method: 'GET',
           };
@@ -97,6 +108,7 @@ export const {
   useFetchRecipeQuery,
   useAddRecipeMutation,
   useEditRecipeMutation,
+  useFetchRecipeNamesByParamsQuery,
   useFetchRecipeNamesQuery,
   useFetchCusinesQuery,
 } = recipesApi;

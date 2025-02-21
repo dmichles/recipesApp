@@ -3,6 +3,7 @@ import RootLayout from './components/Root/Root';
 import AddForm from './components/Forms/Add/AddForm';
 import EditForm from './components/Forms/Edit/EditForm';
 import Recipe from './components/SearchRecipe/Recipe';
+import Delete from './components/Delete/Delete';
 import './App.css';
 
 const router = createBrowserRouter([
@@ -13,6 +14,7 @@ const router = createBrowserRouter([
       { path: '/add', element: <AddForm /> },
       { path: '/edit', element: <EditForm /> },
       { path: '/recipe', element: <Recipe /> },
+      { path: '/delete', element: <Delete /> },
     ],
   },
 ]);

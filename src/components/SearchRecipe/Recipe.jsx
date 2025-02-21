@@ -1,4 +1,7 @@
-import { useFetchRecipeQuery, useFetchRecipeNamesQuery } from '../../store';
+import {
+  useFetchRecipeQuery,
+  useFetchRecipeNamesByParamsQuery,
+} from '../../store';
 import { useState } from 'react';
 import SelectRecipe from './SelectRecipe';
 import FindRecipeByName from './FindRecipeByName';
@@ -24,7 +27,7 @@ function Recipe() {
     data: dataOne,
     error: errorOne,
     isLoading: isLoadingOne,
-  } = useFetchRecipeNamesQuery(query);
+  } = useFetchRecipeNamesByParamsQuery(query);
   let recipeNames = [];
   if (isLoadingOne) {
     console.log('Loading data');

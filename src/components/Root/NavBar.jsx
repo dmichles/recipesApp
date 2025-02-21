@@ -27,6 +27,14 @@ function NavBar() {
       >
         Lookup recipe
       </NavLink>
+      <NavLink
+        to='/delete'
+        className={navData =>
+          navData.isActive ? 'navbar-link-active' : 'navbar-link'
+        }
+      >
+        Delete recipe
+      </NavLink>
     </div>
   );
 }
