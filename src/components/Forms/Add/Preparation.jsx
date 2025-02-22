@@ -8,8 +8,10 @@ function Preparation({ onPreparationChange }) {
   const [prepSteps, setPrepSteps] = useState([{ prepStep: '' }]);
 
   function handlePreparationChange(newStep, index) {
-    console.log(steps);
+    steps = prepSteps;
     steps[index] = newStep;
+    console.log(steps);
+
     setPrepSteps(prevSteps =>
       prevSteps.map((step, i) => {
         if (i === index) {
@@ -39,6 +41,7 @@ function Preparation({ onPreparationChange }) {
               multiline
               sx={{ width: 488 }}
               label={`Preparation step ${index + 1}`}
+              defaultValue='no value entered'
               value={prepSteps[index].prepStep}
               onChange={e =>
                 handlePreparationChange({ prepStep: e.target.value }, index)

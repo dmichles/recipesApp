@@ -77,6 +77,7 @@ function AddForm() {
 
   function onPreparationChange(prep) {
     recipe.preparation = prep;
+    console.log(recipe);
   }
 
   function onIngredientChange(ingredients) {
@@ -85,6 +86,87 @@ function AddForm() {
   }
 
   async function sendRecipe() {
+    console.log(recipe);
+    if (recipe.category === undefined) {
+      alert('Select a value for category');
+      return;
+    }
+    if (recipe.subcategory === undefined) {
+      alert('Select a value for subcategory');
+      return;
+    }
+    if (recipe.type === undefined) {
+      alert('Select a value for dish type');
+      return;
+    }
+    if (recipe.cuisine === undefined) {
+      alert('Select a value for cuisine');
+      return;
+    }
+    if (recipe.prepMethod === undefined) {
+      alert('Select a value for preparation method');
+      return;
+    }
+    if (recipe.rating === undefined) {
+      alert('Select a value for rating');
+      return;
+    }
+    if (recipe.servings === undefined) {
+      alert('Enter a value for number of servings');
+      return;
+    }
+    if (recipe.advance === undefined) {
+      alert('Enter a value for time in advance');
+      return;
+    }
+    if (recipe.comments === undefined) {
+      alert('Enter a value for comments');
+      return;
+    }
+    if (recipe.source === undefined) {
+      alert('Enter a value for source');
+      return;
+    }
+    if (recipe.preparation === undefined) {
+      alert('Enter a value for preparation step');
+      return;
+    }
+    let prep = [];
+    if (recipe.preparation !== undefined) {
+      prep = recipe.preparation.map((element, index) => {
+        if (element.prepStep === '') {
+          alert(`Enter the preparation step number ${index + 1}`);
+          return -1;
+        }
+      });
+    }
+    console.log(recipe.preparation);
+    if (prep.includes(-1)) return;
+
+    if (recipe.ingredients === undefined) {
+      alert('Enter the values for the ingredients');
+      return;
+    }
+
+    let ings = [];
+    if (recipe.ingredients !== undefined) {
+      ings = recipe.ingredients.map((element, index) => {
+        if (element.quantity === '') {
+          alert(`Enter the quantity of ingredient number ${index + 1}`);
+          return -1;
+        }
+        if (element.unit === '') {
+          alert(`Enter the units of ingredient number ${index + 1}`);
+          return -1;
+        }
+        if (element.name === '') {
+          alert(`Enter the name of ingredient number ${index + 1}`);
+          return -1;
+        }
+      });
+    }
+    if (ings.includes(-1)) return;
+
     console.log(recipe);
     const result = await addRecipe(recipe).unwrap();
     console.log(result);
@@ -103,6 +185,7 @@ function AddForm() {
     setChildKey12(prevKey => prevKey + 1);
 
     alert(result.message);
+    recipe = {};
   }
 
   return (

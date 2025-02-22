@@ -17,6 +17,7 @@ function Comments({ onCommentChange }) {
         multiline
         label='Comments'
         value={selectedComment}
+        defaultValue='no comments'
         onChange={e => handleCommentChange(e.target.value)}
       />
     </div>

@@ -11,48 +11,51 @@ import {
 const units = [
   { value: 'none', label: 'none' },
   {
-    value: 'tsp',
+    value: 'teaspoon',
     label: 'teaspoon',
   },
-  { value: 'tbsp', label: 'tablespoon' },
+  { value: 'tablespoon', label: 'tablespoon' },
   { value: 'cup', label: 'cup' },
-  { value: 'floz', label: 'fluid ounce' },
-  { value: 'gal', label: 'gallon' },
+  { value: 'fluid ounce', label: 'fluid ounce' },
+  { value: 'gallon', label: 'gallon' },
   { value: 'gram', label: 'gram' },
-  { value: 'kg', label: 'kilogram' },
-  { value: 'lit', label: 'liter' },
-  { value: 'mil', label: 'milliliter' },
-  { value: 'oz', label: 'ounce' },
-  { value: 'pt', label: 'pint' },
-  { value: 'pnd', label: 'pound' },
-  { value: 'qt', label: 'quart' },
+  { value: 'kilogram', label: 'kilogram' },
+  { value: 'liter', label: 'liter' },
+  { value: 'milliliter', label: 'milliliter' },
+  { value: 'ounce', label: 'ounce' },
+  { value: 'pint', label: 'pint' },
+  { value: 'pound', label: 'pound' },
+  { value: 'quart', label: 'quart' },
 ];
 
 let ingredients = [{ name: '', quantity: '', unit: '' }];
 
 function Ingredient({ onIngredientChange }) {
   const [inputs, setInputs] = useState([{ item: '' }]);
-  const [quantity, setQuantity] = useState([{ qty: '' }]);
-  const [unit, setUnit] = useState([{ ut: '' }]);
-  const [name, setName] = useState([{ nm: '' }]);
+  const [quantity, setQuantity] = useState([{ quantity: '' }]);
+  const [unit, setUnit] = useState([{ unit: '' }]);
+  const [name, setName] = useState([{ name: '' }]);
 
-  const handleAddInput = index => {
+  const handleAddInput = () => {
     setInputs([...inputs, { item: '' }]);
-    setQuantity([...quantity, { qty: '' }]);
-    setUnit([...unit, { ut: '' }]);
-    setName([...name, { nm: '' }]);
-    ingredients.push({ name: '', quantity: '', unit: '' });
-    console.log(ingredients);
+    setQuantity([...quantity, { quantity: '' }]);
+    setUnit([...unit, { unit: '' }]);
+    setName([...name, { name: '' }]);
   };
 
   const handleQuantityChange = (e, index) => {
     console.log(e.target.value);
-
+    ingredients = quantity.map((item, index) => ({
+      ...item,
+      ...unit[index],
+      ...name[index],
+    }));
+    console.log(ingredients);
     ingredients[index].quantity = e.target.value;
     setQuantity(prevQty =>
       prevQty.map((qt, i) => {
         if (i === index) {
-          return { ...qt, qty: e.target.value };
+          return { ...qt, quantity: e.target.value };
         } else {
           return qt;
         }
@@ -64,6 +67,11 @@ function Ingredient({ onIngredientChange }) {
 
   const handleUnitChange = (e, index) => {
     console.log(e.target.value);
+    ingredients = quantity.map((item, index) => ({
+      ...item,
+      ...unit[index],
+      ...name[index],
+    }));
     const [unit] = units
       .filter(u => u.value === e.target.value)
       .map(u => u.label);
@@ -72,7 +80,7 @@ function Ingredient({ onIngredientChange }) {
     setUnit(prevUnit =>
       prevUnit.map((unt, i) => {
         if (i === index) {
-          return { ...unt, ut: e.target.value };
+          return { ...unt, unit: e.target.value };
         } else {
           return unt;
         }
@@ -82,13 +90,18 @@ function Ingredient({ onIngredientChange }) {
 
   const handleNameChange = (e, index) => {
     console.log(e);
+    ingredients = quantity.map((item, index) => ({
+      ...item,
+      ...unit[index],
+      ...name[index],
+    }));
     ingredients[index].name = e;
     console.log(ingredients[index].name);
     onIngredientChange(ingredients);
     setName(prevName =>
       prevName.map((nam, i) => {
         if (i === index) {
-          return { ...nam, nm: e };
+          return { ...nam, name: e };
         } else {
           return nam;
         }
@@ -105,7 +118,7 @@ function Ingredient({ onIngredientChange }) {
               <div className='subselect'>
                 <TextField
                   label='Quantity'
-                  value={quantity[index].qty}
+                  value={quantity[index].quantity}
                   onChange={e => handleQuantityChange(e, index)}
                   size='small'
                   sx={{ width: 160 }}
@@ -118,7 +131,7 @@ function Ingredient({ onIngredientChange }) {
                     select
                     sx={{ width: 160 }}
                     label='Select units'
-                    value={unit[index].ut}
+                    value={unit[index].unit}
                     onChange={e => handleUnitChange(e, index)}
                   >
                     {units.map(u => (
@@ -132,7 +145,7 @@ function Ingredient({ onIngredientChange }) {
               <div className='input-ingredient'>
                 <TextField
                   label='Ingredient'
-                  value={name[index].nm}
+                  value={name[index].name}
                   onChange={e => handleNameChange(e.target.value, index)}
                   size='small'
                   sx={{ width: 158 }}
