@@ -45,6 +45,7 @@ function Delete() {
     deleteRecipe(id);
     setKeyOne(prev => prev + 1);
     setKeyTwo(prev => prev + 1);
+    setQuery('');
   }
 
   return (

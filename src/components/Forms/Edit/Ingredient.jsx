@@ -27,10 +27,10 @@ function Ingredient({ onIngredientChange, recipeIngredient }) {
   const [quantity, setQuantity] = useState([{ qty: '' }]);
   const [unit, setUnit] = useState([{ ut: '' }]);
   const [name, setName] = useState([{ nm: '' }]);
-  const [ingredients, setIngredients] = useState(recipeIngredient);
+  const [ingredients, setIngredients] = useState(recipeIngredient.data);
 
   let arr = [];
-  for (let i = 0; i < recipeIngredient.length; i++) {
+  for (let i = 0; i < recipeIngredient.data.length; i++) {
     arr[i] = i;
     //   ingredients[i] = { id: '', name: '', quantity: '', unit: '' };
   }
@@ -50,19 +50,19 @@ function Ingredient({ onIngredientChange, recipeIngredient }) {
       return { item: '' };
     });
     const qty = arr.map(num => {
-      return { qty: recipeIngredient[num].quantity };
+      return { qty: recipeIngredient.data[num].quantity };
     });
 
     const ut = arr.map(num => {
       const [value] = units
-        .filter(u => u.label === recipeIngredient[num].unit)
+        .filter(u => u.label === recipeIngredient.data[num].unit)
         .map(u => u.value);
       return {
         ut: value,
       };
     });
     const nm = arr.map(num => {
-      return { nm: recipeIngredient[num].name };
+      return { nm: recipeIngredient.data[num].name };
     });
 
     setInputs(inp);

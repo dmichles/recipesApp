@@ -4,11 +4,11 @@ import { Button, TextField } from '@mui/material';
 function Preparation({ onPreparationChange, recipePrepStep }) {
   const [inputs, setInputs] = useState([{ item: '' }]);
   const [prepSteps, setPrepSteps] = useState([{ prepStep: '' }]);
-  const [steps, setSteps] = useState(recipePrepStep);
+  const [steps, setSteps] = useState(recipePrepStep.data);
 
-  console.log(recipePrepStep);
+  console.log(recipePrepStep.data[0].prepStep);
   let arr = [];
-  for (let i = 0; i < recipePrepStep.length; i++) {
+  for (let i = 0; i < recipePrepStep.data.length; i++) {
     arr[i] = i;
     // steps[i] = { id: '', prepStep: '' };
   }
@@ -24,7 +24,7 @@ function Preparation({ onPreparationChange, recipePrepStep }) {
       return { item: '' };
     });
     const prep = arr.map(i => {
-      return { prepStep: recipePrepStep[i].prepStep };
+      return { prepStep: recipePrepStep.data[i].prepStep };
     });
     console.log(prep);
     setInputs(inp);

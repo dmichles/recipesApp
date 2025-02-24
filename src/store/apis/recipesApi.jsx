@@ -34,6 +34,7 @@ const recipesApi = createApi({
         },
       }),
       fetchRecipeNames: builder.query({
+        providesTags: ['rec'],
         query: name => {
           return {
             url: '/getRecipeNames',
@@ -76,6 +77,7 @@ const recipesApi = createApi({
         },
       }),
       deleteRecipe: builder.mutation({
+        invalidatesTags: ['rec'],
         query: id => {
           return {
             url: '/deleteRecipe',

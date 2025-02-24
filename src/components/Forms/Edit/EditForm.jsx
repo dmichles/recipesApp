@@ -1,18 +1,29 @@
-import { useEditRecipeMutation, useFetchRecipeQuery } from '../../../store';
+import {
+  useEditRecipeMutation,
+  useFetchRecipeQuery,
+  useFetchRecipeNamesQuery,
+} from '../../../store';
 import { useState } from 'react';
 import Ingredient from './Ingredient';
 import Category from './Category';
 import Type from './Type';
 import PrepMethod from './PrepMethod';
 import Cuisine from './Cuisine';
-import RatingComp from './Rating';
+import Rating from './Rating';
 import Serving from './Serving';
 import Source from './Source';
 import Advance from './Advance';
 import Name from './Name';
 import Comments from './Comments';
 import Preparation from './Preparation';
-import { Button, TextField } from '@mui/material';
+import {
+  Button,
+  Select,
+  TextField,
+  FormControl,
+  InputLabel,
+} from '@mui/material';
+import SelectRecipe from './SelectRecipe';
 
 let recipe = {};
 recipe.ingredient = [];
@@ -23,7 +34,11 @@ editRecipe.prepStep = [];
 
 function EditForm() {
   const [recipeName, setRecipeName] = useState('');
+  const [recipeId, setRecipeId] = useState('');
   const [updateRecipe, results] = useEditRecipeMutation();
+  const [keyOne, setKeyOne] = useState(1);
+  const [keyTwo, setKeyTwo] = useState(2);
+  const [keyThree, setKeyThree] = useState(3);
 
   function onCategoryChange(category) {
     recipe.category = category;
@@ -77,7 +92,7 @@ function EditForm() {
     recipe.ingredient = ingredient;
   }
 
-  const { data, error, isLoading } = useFetchRecipeQuery(recipeName);
+  const { data, error, isLoading } = useFetchRecipeQuery(recipeId);
   let result = null;
   // recipe.prepStep[0] = { name: '' };
   // recipe.ingredient[0] = { name: '', quantity: '', unit: '' };
@@ -124,8 +139,10 @@ function EditForm() {
   function sendRecipe() {
     console.log(recipe);
     updateRecipe(recipe);
-    // console.log(result);
+    setKeyOne(prev => prev + 1);
+
     setRecipeName('');
+    setRecipeId('');
 
     recipe.id = '';
     recipe.name = '';
@@ -146,6 +163,33 @@ function EditForm() {
     editRecipe.prepStep = [];
   }
 
+  const {
+    data: dataOne,
+    error: errorOne,
+    isLoading: isLoadingOne,
+  } = useFetchRecipeNamesQuery(recipeName);
+
+  let recipeNames = [];
+  if (isLoadingOne) {
+    console.log('Loading data');
+  } else if (errorOne) {
+    console.log('Error loading data');
+  } else if (!isLoadingOne) {
+    let resultOne = dataOne;
+    if (resultOne !== null) {
+      resultOne.map((item, index) => {
+        recipeNames[index] = { value: '', label: '' };
+        recipeNames[index].value = item.id;
+        recipeNames[index].label = item.name;
+      });
+    }
+  }
+
+  function onSelectChange(id) {
+    setRecipeId(id);
+    console.log(id);
+  }
+
   return (
     <div className='container'>
       <div className='textfield'>
@@ -157,6 +201,11 @@ function EditForm() {
           onChange={e => setRecipeName(e.target.value)}
         />
       </div>
+      <SelectRecipe
+        key={keyOne}
+        onSelectChange={onSelectChange}
+        recipeNames={recipeNames}
+      />
       {result && (
         <div>
           <Name onNameChange={onNameChange} recipeName={recipe.name} />
@@ -175,7 +224,7 @@ function EditForm() {
             onCuisineChange={onCuisineChange}
             recipeCuisine={recipe.cuisine}
           />
-          <RatingComp
+          <Rating
             onRatingChange={onRatingChange}
             recipeRating={recipe.rating}
           />
@@ -196,12 +245,14 @@ function EditForm() {
             recipeComments={recipe.comments}
           />
           <Ingredient
+            key={keyTwo}
             onIngredientChange={onIngredientChange}
-            recipeIngredient={editRecipe.ingredient}
+            recipeIngredient={{ data: editRecipe.ingredient }}
           />
           <Preparation
+            key={keyThree}
             onPreparationChange={onPreparationChange}
-            recipePrepStep={editRecipe.prepStep}
+            recipePrepStep={{ data: editRecipe.prepStep }}
           />
           <div className='subcontainer'>
             <Button
