@@ -23,16 +23,16 @@ function Delete() {
     console.log(resultOne);
     if (resultOne !== null) {
       resultOne.map((item, index) => {
-        recipeNames[index] = { value: '1', label: '' };
-        recipeNames[index].value = index.toString();
+        recipeNames[index] = { value: '', label: '' };
+        recipeNames[index].value = item.id;
         recipeNames[index].label = item.name;
         console.log(recipeNames);
       });
     }
   }
 
-  function onChangeName(name) {
-    setQuery(name);
+  function onChangeName(id) {
+    setQuery(id);
   }
 
   function onChangeSelect(tobedeleted) {

@@ -1,16 +1,12 @@
 import { useState } from 'react';
 import { Select, FormControl, InputLabel, MenuItem } from '@mui/material';
 
-function SelectRecipe({ onChange, recipeNames }) {
+function SelectRecipeByParams({ onChange, recipeNames }) {
   const [selectedRecipe, setSelectedRecipe] = useState('');
 
   const doChange = e => {
     setSelectedRecipe(e.target.value);
-    onChange(
-      recipeNames
-        .filter(recipe => recipe.value === e.target.value)
-        .map(recipe => recipe.label)
-    );
+    onChange(e.target.value);
   };
 
   return (
@@ -36,4 +32,4 @@ function SelectRecipe({ onChange, recipeNames }) {
   );
 }
 
-export default SelectRecipe;
+export default SelectRecipeByParams;

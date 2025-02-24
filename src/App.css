@@ -84,7 +84,7 @@ h2 {
 }
 .textfield {
   margin-top: 15px;
-  margin-bottom: 25px;
+  margin-bottom: 5px;
 }
 
 .select {
@@ -105,4 +105,8 @@ h2 {
 
 .recipe-card {
   margin-top: 10px;
+}
+
+.break {
+  margin-bottom: 25px;
 }

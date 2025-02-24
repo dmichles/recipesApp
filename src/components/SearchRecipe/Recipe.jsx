@@ -1,9 +1,11 @@
 import {
   useFetchRecipeQuery,
   useFetchRecipeNamesByParamsQuery,
+  useFetchRecipeNamesQuery,
 } from '../../store';
 import { useState } from 'react';
-import SelectRecipe from './SelectRecipe';
+import SelectRecipeByName from './SelectRecipeByName';
+import SelectRecipeByParams from './SelectRecipeByParams';
 import FindRecipeByName from './FindRecipeByName';
 import RecipeCard from './RecipeCard';
 import Category from './Category';
@@ -14,6 +16,7 @@ import Cuisine from './Cuisine';
 
 function Recipe() {
   const [recipeValue, setRecipeValue] = useState('');
+  const [recipeByNameValue, setRecipeByNameValue] = useState('');
   const [query, setQuery] = useState({
     category: '',
     subcategory: '',
@@ -38,8 +41,8 @@ function Recipe() {
     console.log(resultOne);
     if (resultOne !== null) {
       resultOne.map((item, index) => {
-        recipeNames[index] = { value: '1', label: '' };
-        recipeNames[index].value = index.toString();
+        recipeNames[index] = { value: '', label: '' };
+        recipeNames[index].value = item.id;
         recipeNames[index].label = item.name;
         console.log(recipeNames);
       });
@@ -101,13 +104,42 @@ function Recipe() {
   console.log(recipe);
   console.log(recipe.ingredient[0].quantity);
 
-  const onChangeSelect = value => {
+  const {
+    data: dataThree,
+    error: errorThree,
+    isLoading: isLoadingThree,
+  } = useFetchRecipeNamesQuery(recipeByNameValue);
+
+  let recipesByName = [];
+  if (isLoadingThree) {
+    console.log('Loading data');
+  } else if (errorThree) {
+    console.log('Error loading data');
+  } else if (!isLoadingThree) {
+    let resultThree = dataThree;
+    console.log(resultThree);
+    if (resultThree !== null) {
+      resultThree.map((item, index) => {
+        recipesByName[index] = { value: '', label: '' };
+        recipesByName[index].value = item.id;
+        recipesByName[index].label = item.name;
+        console.log(recipesByName);
+      });
+    }
+  }
+
+  const onChangeSelectByParams = value => {
+    console.log(value);
+    setRecipeValue(value);
+  };
+
+  const onChangeSelectByName = value => {
     console.log(value);
     setRecipeValue(value);
   };
 
   const onChangeName = value => {
-    setRecipeValue(value);
+    setRecipeByNameValue(value);
   };
 
   const onCategoryChange = category => {
@@ -136,6 +168,10 @@ function Recipe() {
   return (
     <div>
       <FindRecipeByName onChange={onChangeName} />
+      <SelectRecipeByName
+        recipeNames={recipesByName}
+        onChange={onChangeSelectByName}
+      />
       <Category
         onCategoryChange={onCategoryChange}
         onSubcategoryChange={onSubcategoryChange}
@@ -144,7 +180,10 @@ function Recipe() {
       <Cuisine onCuisineChange={onCuisineChange} />
       <PrepMethod onPrepMethodChange={onPrepMethodChange} />
       <Ingredient onIngredientChange={onIngredientChange} />
-      <SelectRecipe recipeNames={recipeNames} onChange={onChangeSelect} />
+      <SelectRecipeByParams
+        recipeNames={recipeNames}
+        onChange={onChangeSelectByParams}
+      />
       {result && <RecipeCard recipe={recipe} />}
     </div>
   );

@@ -15,11 +15,7 @@ function SelectRecipe({ onChangeSelect, recipeNames }) {
   };
 
   const doClick = () => {
-    onChangeSelect(
-      recipeNames
-        .filter(recipe => recipe.value === selectedRecipe)
-        .map(recipe => recipe.label)
-    );
+    onChangeSelect(selectedRecipe);
   };
 
   return (

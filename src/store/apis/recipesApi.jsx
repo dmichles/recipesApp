@@ -9,10 +9,10 @@ const recipesApi = createApi({
     return {
       fetchRecipe: builder.query({
         providesTags: ['recipe'],
-        query: name => {
+        query: id => {
           return {
             url: '/getRecipe',
-            params: { name: name },
+            params: { id: id },
             method: 'GET',
           };
         },
@@ -72,6 +72,15 @@ const recipesApi = createApi({
               advance: recipe.advance,
             },
             method: 'POST',
+          };
+        },
+      }),
+      deleteRecipe: builder.mutation({
+        query: id => {
+          return {
+            url: '/deleteRecipe',
+            params: { id: id },
+            method: 'DELETE',
           };
         },
       }),
