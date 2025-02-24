@@ -3,7 +3,7 @@ import RootLayout from './components/Root/Root';
 import AddForm from './components/Forms/Add/AddForm';
 import EditForm from './components/Forms/Edit/EditForm';
 import Recipe from './components/SearchRecipe/Recipe';
-import Delete from './components/Delete/Delete';
+import Delete from './components/Forms/Delete/Delete';
 import './App.css';
 
 const router = createBrowserRouter([

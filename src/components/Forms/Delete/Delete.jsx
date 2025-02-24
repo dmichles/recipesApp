@@ -1,5 +1,8 @@
 import { useState } from 'react';
-import { useFetchRecipeNamesQuery } from '../../store';
+import {
+  useFetchRecipeNamesQuery,
+  useDeleteRecipeMutation,
+} from '../../../store';
 import FindRecipeByName from './FindRecipeByName';
 import SelectRecipe from './SelectRecipe';
 
@@ -12,6 +15,7 @@ function Delete() {
     error: errorOne,
     isLoading: isLoadingOne,
   } = useFetchRecipeNamesQuery(query);
+  const [deleteRecipe, results] = useDeleteRecipeMutation();
 
   let recipeNames = [];
   if (isLoadingOne) {
@@ -31,11 +35,14 @@ function Delete() {
     }
   }
 
-  function onChangeName(id) {
-    setQuery(id);
+  function onChangeName(name) {
+    setQuery(name);
   }
 
-  function onChangeSelect(tobedeleted) {
+  function onChangeSelect(id) {
+    console.log(id);
+    console.log('deleted');
+    deleteRecipe(id);
     setKeyOne(prev => prev + 1);
     setKeyTwo(prev => prev + 1);
   }

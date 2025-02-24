@@ -117,6 +117,7 @@ export const {
   useFetchRecipeQuery,
   useAddRecipeMutation,
   useEditRecipeMutation,
+  useDeleteRecipeMutation,
   useFetchRecipeNamesByParamsQuery,
   useFetchRecipeNamesQuery,
   useFetchCusinesQuery,
