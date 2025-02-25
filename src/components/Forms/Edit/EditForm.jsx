@@ -94,6 +94,8 @@ function EditForm() {
 
   const { data, error, isLoading } = useFetchRecipeQuery(recipeId);
   let result = null;
+  recipe.prepStep = [];
+  recipe.ingredient = [];
   // recipe.prepStep[0] = { name: '' };
   // recipe.ingredient[0] = { name: '', quantity: '', unit: '' };
   if (isLoading) {
@@ -133,7 +135,7 @@ function EditForm() {
       });
       editRecipe.ingredient = recipe.ingredient;
       editRecipe.prepStep = recipe.prepStep;
-      console.log(recipe);
+      console.log(recipe.prepStep);
     }
   }
   function sendRecipe() {

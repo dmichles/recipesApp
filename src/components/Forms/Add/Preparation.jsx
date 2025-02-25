@@ -7,6 +7,7 @@ function Preparation({ onPreparationChange }) {
   const [inputs, setInputs] = useState([{ item: '' }]);
   const [prepSteps, setPrepSteps] = useState([{ prepStep: '' }]);
 
+  console.log(prepSteps);
   function handlePreparationChange(newStep, index) {
     steps = prepSteps;
     steps[index] = newStep;

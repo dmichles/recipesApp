@@ -6,7 +6,8 @@ function Preparation({ onPreparationChange, recipePrepStep }) {
   const [prepSteps, setPrepSteps] = useState([{ prepStep: '' }]);
   const [steps, setSteps] = useState(recipePrepStep.data);
 
-  console.log(recipePrepStep.data[0].prepStep);
+  console.log(recipePrepStep.data);
+  console.log(prepSteps);
   let arr = [];
   for (let i = 0; i < recipePrepStep.data.length; i++) {
     arr[i] = i;
