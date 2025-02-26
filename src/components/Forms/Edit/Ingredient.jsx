@@ -20,6 +20,7 @@ const units = [
   { value: 'pnd', label: 'pound' },
   { value: 'qt', label: 'quart' },
   { value: 'pie', label: 'piece' },
+  { value: 'pack', label: 'package' },
 ];
 
 function Ingredient({ onIngredientChange, recipeIngredient }) {
@@ -169,13 +170,22 @@ function Ingredient({ onIngredientChange, recipeIngredient }) {
         <div key={index}>
           <div>
             <div className='select'>
-              <div className='subselect'>
+              <div className='input-ingredient'>
                 <TextField
-                  label='Quantity'
-                  value={quantity[index].qty}
-                  onChange={e => handleQuantityChange(e, index)}
+                  label='Ingredient'
+                  value={name[index].nm}
+                  onChange={e => handleNameChange(e.target.value, index)}
                   size='small'
-                  sx={{ width: 160 }}
+                  sx={{ width: 158 }}
+                />
+              </div>
+              <div className='input-ingredient'>
+                <TextField
+                  label='Ingredient'
+                  value={name[index].nm}
+                  onChange={e => handleNameChange(e.target.value, index)}
+                  size='small'
+                  sx={{ width: 158 }}
                 />
               </div>
               <div className='subselect'>

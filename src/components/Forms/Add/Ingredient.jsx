@@ -27,6 +27,7 @@ const units = [
   { value: 'pound', label: 'pound' },
   { value: 'quart', label: 'quart' },
   { value: 'piece', label: 'piece' },
+  { value: 'package', label: 'package' },
 ];
 
 let ingredients = [{ name: '', quantity: '', unit: '' }];
@@ -117,13 +118,13 @@ function Ingredient({ onIngredientChange }) {
         <div key={index}>
           <div>
             <div className='select'>
-              <div className='subselect'>
+              <div className='input-ingredient'>
                 <TextField
-                  label='Quantity'
-                  value={quantity[index].quantity}
-                  onChange={e => handleQuantityChange(e, index)}
+                  label='Ingredient'
+                  value={name[index].name}
+                  onChange={e => handleNameChange(e.target.value, index)}
                   size='small'
-                  sx={{ width: 160 }}
+                  sx={{ width: 158 }}
                 />
               </div>
               <div className='subselect'>
@@ -144,13 +145,13 @@ function Ingredient({ onIngredientChange }) {
                   </TextField>
                 </FormControl>
               </div>
-              <div className='input-ingredient'>
+              <div className='subselect'>
                 <TextField
-                  label='Ingredient'
-                  value={name[index].name}
-                  onChange={e => handleNameChange(e.target.value, index)}
+                  label='Quantity'
+                  value={quantity[index].quantity}
+                  onChange={e => handleQuantityChange(e, index)}
                   size='small'
-                  sx={{ width: 158 }}
+                  sx={{ width: 160 }}
                 />
               </div>
             </div>
