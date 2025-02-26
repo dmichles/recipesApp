@@ -12,15 +12,12 @@ function SelectRecipe({ onChangeSelect, recipeNames }) {
 
   const doChange = e => {
     setSelectedRecipe(e.target.value);
-  };
-
-  const doClick = () => {
-    onChangeSelect(selectedRecipe);
+    onChangeSelect(e.target.value);
   };
 
   return (
     <div>
-      <div className='select'>
+      <div className='select-bottom'>
         <FormControl>
           <InputLabel id='select-label'>Select recipe</InputLabel>
           <Select
@@ -39,16 +36,6 @@ function SelectRecipe({ onChangeSelect, recipeNames }) {
           </Select>
         </FormControl>
       </div>
-      {selectedRecipe !== '' && (
-        <Button
-          className='button-ingredient'
-          variant='contained'
-          size='medium'
-          onClick={doClick}
-        >
-          Delete recipe
-        </Button>
-      )}
     </div>
   );
 }

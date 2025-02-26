@@ -26,6 +26,7 @@ const units = [
   { value: 'pint', label: 'pint' },
   { value: 'pound', label: 'pound' },
   { value: 'quart', label: 'quart' },
+  { value: 'piece', label: 'piece' },
 ];
 
 let ingredients = [{ name: '', quantity: '', unit: '' }];
