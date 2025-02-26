@@ -4,7 +4,8 @@ import { Select, InputLabel, FormControl, MenuItem } from '@mui/material';
 const prepMethods = [
   { value: 'coo', label: 'Cooked' },
   { value: 'bak', label: 'Baked' },
-  { value: 'mix', label: 'Mixed' },
+  { value: 'mix', label: 'Mix Ingredients' },
+  { value: 'com', label: 'Combined' },
 ];
 
 function PrepMethod({ onPrepMethodChange, recipePrepMethod }) {
