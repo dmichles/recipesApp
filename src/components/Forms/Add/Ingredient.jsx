@@ -41,7 +41,7 @@ function Ingredient({ onIngredientChange }) {
   const handleAddInput = () => {
     setInputs([...inputs, { item: '' }]);
     setQuantity([...quantity, { quantity: '' }]);
-    setUnit([...unit, { ut: '' }]);
+    setUnit([...unit, { unit: '' }]);
     setName([...name, { name: '' }]);
   };
 
@@ -78,12 +78,13 @@ function Ingredient({ onIngredientChange }) {
     const [unt] = units
       .filter(u => u.value === e.target.value)
       .map(u => u.label);
-    ingredients[index].ut = unt;
+    ingredients[index].unit = unt;
+    console.log(ingredients);
     onIngredientChange(ingredients);
     setUnit(prevUnit =>
       prevUnit.map((unt, i) => {
         if (i === index) {
-          return { ...unt, ut: e.target.value };
+          return { ...unt, unit: e.target.value };
         } else {
           return unt;
         }
@@ -118,7 +119,7 @@ function Ingredient({ onIngredientChange }) {
         <div key={index}>
           <div>
             <div className='select'>
-              <div className='input-ingredient'>
+              <div className='subselect'>
                 <TextField
                   label='Ingredient'
                   value={name[index].name}

@@ -170,16 +170,7 @@ function Ingredient({ onIngredientChange, recipeIngredient }) {
         <div key={index}>
           <div>
             <div className='select'>
-              <div className='input-ingredient'>
-                <TextField
-                  label='Ingredient'
-                  value={name[index].nm}
-                  onChange={e => handleNameChange(e.target.value, index)}
-                  size='small'
-                  sx={{ width: 158 }}
-                />
-              </div>
-              <div className='input-ingredient'>
+              <div className='subselect'>
                 <TextField
                   label='Ingredient'
                   value={name[index].nm}
@@ -206,11 +197,11 @@ function Ingredient({ onIngredientChange, recipeIngredient }) {
                   </TextField>
                 </FormControl>
               </div>
-              <div className='input-ingredient'>
+              <div className='subselect'>
                 <TextField
-                  label='Ingredient'
-                  value={name[index].nm}
-                  onChange={e => handleNameChange(e.target.value, index)}
+                  label='Quantity'
+                  value={quantity[index].qty}
+                  onChange={e => handleQuantityChange(e, index)}
                   size='small'
                   sx={{ width: 158 }}
                 />
