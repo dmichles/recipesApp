@@ -12,7 +12,9 @@ import Advance from './Advance';
 import Name from './Name';
 import Comments from './Comments';
 import Preparation from './Preparation';
+import ImageInput from './ImageInput';
 import { Button } from '@mui/material';
+
 
 let recipe = {};
 
@@ -30,7 +32,11 @@ function AddForm() {
   const [childKey10, setChildKey10] = useState(9);
   const [childKey11, setChildKey11] = useState(10);
   const [childKey12, setChildKey12] = useState(11);
+  const [childKey13, setChildKey13] = useState(12);
 
+  function onImageUrlChange() {
+
+  }
   function onCategoryChange(category) {
     recipe.category = category;
   }
@@ -183,6 +189,7 @@ function AddForm() {
     setChildKey10(prevKey => prevKey + 1);
     setChildKey11(prevKey => prevKey + 1);
     setChildKey12(prevKey => prevKey + 1);
+    setChildKey13(prevKey => prevKey + 1);
 
     alert(result.message);
     recipe = {};
@@ -191,6 +198,7 @@ function AddForm() {
   return (
     <div className='container'>
       <Name onNameChange={onNameChange} key={childKey1} />
+      <ImageInput onImageUrlChange={onImageUrlChange} key={childKey13} />
       <Category
         onCategoryChange={onCategoryChange}
         onSubcategoryChange={onSubcategoryChange}

@@ -113,3 +113,18 @@ h2 {
 .break {
   margin-bottom: 25px;
 }
+
+.image-show {
+  margin-top: 10px;
+  border: 1px solid gray;
+  border-radius: 5px;
+  height: 220px;
+  width: 488px;
+  box-shadow: 0 0 4px #c8c8c8;
+  position: relative;
+  cursor: pointer;
+  color: black;
+  background-color: white;
+  gap: 10px;
+  overflow: hidden;
+}
