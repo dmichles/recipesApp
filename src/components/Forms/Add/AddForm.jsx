@@ -34,7 +34,8 @@ function AddForm() {
   const [childKey12, setChildKey12] = useState(11);
   const [childKey13, setChildKey13] = useState(12);
 
-  function onImageUrlChange() {
+  function onImageUrlChange(imageUrl) {
+    recipe.imageUrl = imageUrl;
 
   }
   function onCategoryChange(category) {
@@ -95,6 +96,11 @@ function AddForm() {
     console.log(recipe);
     if (recipe.category === undefined) {
       alert('Select a value for category');
+      return;
+    }
+
+    if (recipe.imageUrl === undefined) {
+      alert('Select image file for the recipe');
       return;
     }
     if (recipe.subcategory === undefined) {

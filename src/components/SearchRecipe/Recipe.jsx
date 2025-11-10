@@ -58,6 +58,7 @@ function Recipe() {
   console.log(query);
   let recipe = {
     name: '',
+    imageUrl: '',
     category: '',
     subcategory: '',
     type: '',
@@ -78,6 +79,7 @@ function Recipe() {
     console.log(result);
     if (result !== null) {
       recipe.name = result.name;
+      recipe.imageUrl = result.imageUrl;
       recipe.category = result.category;
       recipe.subcategory = result.subcategory;
       recipe.type = result.type;

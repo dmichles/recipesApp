@@ -59,6 +59,7 @@ const recipesApi = createApi({
             url: '/addRecipe',
             body: {
               name: recipe.name,
+              imageUrl: recipe.imageUrl,
               category: recipe.category,
               subcategory: recipe.subcategory,
               comments: recipe.comments,

@@ -5,6 +5,7 @@ import {
   Typography,
   Box,
   Rating,
+  CardMedia,
 } from '@mui/material';
 
 function RecipeCard({ recipe }) {
@@ -25,6 +26,10 @@ function RecipeCard({ recipe }) {
               />
             </Stack>
           </>
+          <CardMedia
+            sx={{ height: 140, width: 660 }}
+            image={recipe.imageUrl}
+          />
           <Box>
             <Stack direction='row' justifyContent='center' spacing={9}>
               <Stack direction='column'>

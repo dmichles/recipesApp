@@ -16,6 +16,7 @@ import Advance from './Advance';
 import Name from './Name';
 import Comments from './Comments';
 import Preparation from './Preparation';
+import Image from './Image';
 import {
   Button,
   Select,
@@ -39,6 +40,10 @@ function EditForm() {
   const [keyOne, setKeyOne] = useState(1);
   const [keyTwo, setKeyTwo] = useState(2);
   const [keyThree, setKeyThree] = useState(3);
+
+  function onImageUrlChange(imageUrl) {
+    recipe.imageUrl = imageUrl;
+  }
 
   function onCategoryChange(category) {
     recipe.category = category;
@@ -108,6 +113,7 @@ function EditForm() {
     if (result !== null) {
       recipe.id = result.id;
       recipe.name = result.name;
+      recipe.imageUrl = result.imageUrl;
       recipe.category = result.category;
       recipe.subcategory = result.subcategory;
       recipe.type = result.type;
@@ -148,6 +154,7 @@ function EditForm() {
 
     recipe.id = '';
     recipe.name = '';
+    recipe.imageUrl = '';
     recipe.category = '';
     recipe.subcategory = '';
     recipe.type = '';
@@ -211,6 +218,7 @@ function EditForm() {
       {result && (
         <div>
           <Name onNameChange={onNameChange} recipeName={recipe.name} />
+          <Image onImageUrlChange={onImageUrlChange} imageUrl={recipe.imageUrl} />
           <Category
             onCategoryChange={onCategoryChange}
             categoryValue={recipe.category}

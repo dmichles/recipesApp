@@ -1,15 +1,21 @@
-import { useState } from "react"
-import { MuiFileInput } from "mui-file-input"
-import { Button } from "@mui/material"
+import { useState,  useEffect } from "react";
+import { MuiFileInput } from "mui-file-input";
+import { Button } from "@mui/material";
 
-function ImageInput({onImageUrlChange}) {
+function Image({onImageUrlChange, imageUrl}) {
     const [value, setValue] = useState(null);
     const [preview, setPreview] = useState(null);
     const [uploaded, setUploaded] = useState(false);
-    
+    const [selectedUrl, setSelectedUrl] = useState(imageUrl);
+
+     useEffect(() => {
+        setSelectedUrl(imageUrl);
+  }, [imageUrl]);
+
+
     const handleChange = (newValue) => {
         setValue(newValue);
-        setPreview(URL.createObjectURL(newValue));
+        setSelectedUrl(URL.createObjectURL(newValue));
         setUploaded(false);
 
     }
@@ -37,8 +43,8 @@ function ImageInput({onImageUrlChange}) {
                 size='small'
                 sx={{ width: 488 }}
             onChange={handleChange} />
-        {value && <img className='image-show' src={preview} />}
-        {value && !uploaded && <div className='subcontainer'>
+        {selectedUrl && <img className='image-show' src={selectedUrl} />}
+        {selectedUrl && value && !uploaded && <div className='subcontainer'>
             <Button
                 variant='contained'
                 size='medium'
@@ -48,7 +54,7 @@ function ImageInput({onImageUrlChange}) {
                 Upload image
             </Button>
         </div>}
-    </div>
+        </div>
 }
 
-export default ImageInput
+export default Image;
