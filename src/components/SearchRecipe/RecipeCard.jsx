@@ -26,10 +26,12 @@ function RecipeCard({ recipe }) {
               />
             </Stack>
           </>
+          <CardContent sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
           <CardMedia
-            sx={{ height: 140, width: 660 }}
+            sx={{ height: 240, width: 460 }}
             image={recipe.imageUrl}
-          />
+            />
+            </CardContent>
           <Box>
             <Stack direction='row' justifyContent='center' spacing={9}>
               <Stack direction='column'>
