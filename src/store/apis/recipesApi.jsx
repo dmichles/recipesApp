@@ -94,6 +94,7 @@ const recipesApi = createApi({
             url: '/updateRecipe',
             body: {
               id: recipe.id,
+              imageUrl: recipe.imageUrl,
               name: recipe.name,
               category: recipe.category,
               subcategory: recipe.subcategory,
