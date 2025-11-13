@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 const recipesApi = createApi({
   reducerPath: 'recipes',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://localhost:8080',
+    baseUrl: 'https://recipesbackend-production-6999.up.railway.app:8080',
   }),
   endpoints(builder) {
     return {

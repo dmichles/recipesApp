@@ -99,10 +99,6 @@ function AddForm() {
       return;
     }
 
-    if (recipe.imageUrl === undefined) {
-      alert('Select image file for the recipe');
-      return;
-    }
     if (recipe.subcategory === undefined) {
       alert('Select a value for subcategory');
       return;
